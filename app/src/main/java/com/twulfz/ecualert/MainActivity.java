@@ -1,6 +1,9 @@
 package com.twulfz.ecualert;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     //private val apiKey = BuildConfig.GOOGLE_API_KEY;
+    ImageButton btnAlert, btnReport, btnMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +26,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        btnAlert = findViewById(R.id.btn_alert);
+        btnAlert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Activity_mapa.class);
+                startActivity(intent);
+            }
+        });
     }
+
 }
