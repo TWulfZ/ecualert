@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Ecualert"
         tools:targetApi="31">
         <activity
+            android:name=".Form_Registro"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
