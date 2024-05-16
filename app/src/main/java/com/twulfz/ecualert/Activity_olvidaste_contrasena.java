@@ -11,44 +11,31 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+public class Activity_olvidaste_contrasena extends AppCompatActivity {
 
-public class Activity_inicio_sesion extends AppCompatActivity {
-
-    Button btnLoggin;
-    Button btnRegister;
+    Button btnRestablecer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_inicio_sesion);
+        setContentView(R.layout.activity_olvidaste_contrasena);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        btnLoggin = findViewById(R.id.btnLoggin);
-
-        btnLoggin.setOnClickListener(new View.OnClickListener() {
+        btnRestablecer = findViewById(R.id.btnRestablecer);
+        btnRestablecer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // send to main activity
-                Intent intent = new Intent(Activity_inicio_sesion.this, MainActivity.class);
+                Intent intent = new Intent(Activity_olvidaste_contrasena.this, Activity_nueva_contransena.class);
                 startActivity(intent);
                 finish();
+
+
             }
         });
-        btnRegister = findViewById(R.id.btnRegister);  // Usar btnRegister, no btnrRgister
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(Activity_inicio_sesion.this, Activity_olvidaste_contrasena.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
     }
 }

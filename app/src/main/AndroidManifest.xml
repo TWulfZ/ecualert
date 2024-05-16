@@ -17,6 +17,15 @@
             android:exported="false"
             android:label="@string/title_activity_botton_nave_menu_admcuenta" />
         <activity
+            android:name=".Form_Registro"
+        android:exported="false" />
+        <activity
+            android:name=".Activity_nueva_contransena"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_olvidaste_contrasena"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
