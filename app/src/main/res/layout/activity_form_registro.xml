@@ -11,10 +11,10 @@
 
     <TextView
         android:id="@+id/txtEcualert"
-        android:layout_width="379dp"
+        android:layout_width="wrap_content"
         android:layout_height="69dp"
         android:layout_marginTop="76dp"
-        android:text="Registro"
+        android:text="REGISTRO"
         android:textAlignment="center"
         android:textColor="@color/fontAlt_color"
         android:textSize="52dp"

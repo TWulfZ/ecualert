@@ -1,10 +1,10 @@
 package com.twulfz.ecualert;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import android.widget.FrameLayout;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,4 +61,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
