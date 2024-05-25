@@ -1,10 +1,9 @@
 package com.twulfz.ecualert;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.widget.FrameLayout;
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.twulfz.ecualert.databinding.ActivityMainBinding;
+import com.twulfz.ecualert.fragments.HomeFragment;
+import com.twulfz.ecualert.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

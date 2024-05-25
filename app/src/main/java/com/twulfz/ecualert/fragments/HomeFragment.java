@@ -1,17 +1,15 @@
-package com.twulfz.ecualert;
+package com.twulfz.ecualert.fragments;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import com.twulfz.ecualert.R;
 
 public class HomeFragment extends Fragment {
 
