@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.twulfz.ecualert.databinding.ActivityMainBinding;
 import com.twulfz.ecualert.fragments.HomeFragment;
 import com.twulfz.ecualert.fragments.MapFragment;
+import com.twulfz.ecualert.fragments.UserFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

@@ -13,20 +13,17 @@
         android:theme="@style/Theme.Ecualert"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
+            android:name=".ActivityEditarContrasena"
+            android:exported="false" />
+        <activity
             android:name=".Form_Registro"
-        android:exported="false" />
+            android:exported="false" />
         <activity
             android:name=".Activity_nueva_contransena"
             android:exported="false" />
         <activity
             android:name=".Activity_olvidaste_contrasena"
             android:exported="false" />
-=======
-            android:name=".botton_nave_menu_admcuenta"
-            android:exported="false"
-            android:label="@string/title_activity_botton_nave_menu_admcuenta" />
->>>>>>> 501a6af42a2b9b9ee76bf54313eacee8f253d7ad
         <activity
             android:name=".MainActivity"
             android:exported="false" />
