@@ -3,80 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:paddingTop="?attr/actionBarSize"
     >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="ECUALERT"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.078" />
-
-    <ImageButton
-        android:id="@+id/btn_alert"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/circle_warning"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="2dp"
-        android:scaleType="fitStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/logo_white" />
-
-
-    <ImageButton
-        android:id="@+id/btn_report"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/circle_primary"
-        android:padding="22dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
-        app:layout_constraintStart_toEndOf="@+id/btn_map"
-        app:layout_constraintTop_toBottomOf="@+id/btn_alert"
-        app:srcCompat="@drawable/ic_report" />
-
-    <ImageButton
-        android:id="@+id/btn_map"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/circle_primary"
-        android:padding="28dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toStartOf="@+id/btn_report"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_alert"
-        app:srcCompat="@drawable/ic_map" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:background="#8A28E2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:itemIconSize="32dp"
+        app:itemRippleColor="@color/fontAlt_color"
+        app:itemIconTint="@color/icons_color"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemTextAppearanceActive="@dimen/design_bottom_navigation_active_text_size"
+        app:itemTextAppearanceInactive="@dimen/design_bottom_navigation_text_size"
+        app:itemTextColor="@color/icons_color"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

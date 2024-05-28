@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".fragments.UserFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="172dp"
+        android:layout_height="172dp"
+        android:src="@drawable/user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgV_edit"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="-64dp"
+        android:layout_marginEnd="-58dp"
+        android:src="@drawable/ic_edit_alt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_user"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Nombre de ususario"
+        android:background="@drawable/border_black"
+        android:textColor="@color/black"
+        style="@style/EditText"
+        android:drawableLeft="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Button
+        android:id="@+id/btn_edit_pass"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        style="@style/EditText"
+        android:background="@drawable/border_black"
+        android:textColor="@color/black"
+        android:paddingStart="8dp"
+        android:drawableLeft="@drawable/ic_edit"
+        android:text="Cambiar contraseña"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/btn_report"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:paddingStart="8dp"
+        style="@style/EditText"
+        android:drawableLeft="@drawable/ic_report"
+        android:text="Mis reportes"
+        android:background="@drawable/border_black"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="@color/warning_color"
+        android:textColor="@color/white"
+        style="@style/EditText"
+        android:text="Cerrar sesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+
+</LinearLayout>
