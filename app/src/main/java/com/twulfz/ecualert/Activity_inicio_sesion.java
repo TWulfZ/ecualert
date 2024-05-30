@@ -44,7 +44,7 @@ public class Activity_inicio_sesion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Activity_inicio_sesion.this, Activity_olvidaste_contrasena.class);
+                Intent intent = new Intent(Activity_inicio_sesion.this, Form_Registro.class);
                 startActivity(intent);
                 finish();
             }
