@@ -66,25 +66,16 @@ public class Form_Registro extends AppCompatActivity {
 
     // Implements image uploading
     private void RegisterUser(String username, String correo, String password, String urlPicture) {
-        authManager.registerUser(correo, password, new AuthManager.RegisterCallback() {
+        authManager.registerUser(correo, password, new AuthManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
-                UserModel userModel = new UserModel(username, "", correo, user.getUid());
-                firestoreManager.createUserDocument(userModel, new FirestoreManager.CreateUserCallback() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(Form_Registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
-                        // Enviar a la pantalla de inicio
-                        Intent intent = new Intent(Form_Registro.this, Activity_inicio_sesion.class);
-                        startActivity(intent);
-                        finish();
-                    }
+                authManager.updateUserProfile(user, username, urlPicture);
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        Log.d("Error", e.getMessage());
-                    }
-                });
+                Toast.makeText(Form_Registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                // Enviar a la pantalla de inicio
+                Intent intent = new Intent(Form_Registro.this, Activity_inicio_sesion.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override

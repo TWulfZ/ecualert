@@ -25,10 +25,12 @@
             android:name=".Activity_olvidaste_contrasena"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity_inicio_sesion"
+            android:exported="false" />
+        <!-- TODO: Empezar desde MainActivity y Autenticar el usuario guardado en el dispositivo (SharedPreferences),
+            TODO: Si el usuario no existe, mostrar la pantalla de inicio de sesion -->
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

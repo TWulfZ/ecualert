@@ -9,7 +9,7 @@
       android:strokeWidth="0.974677"
       android:fillType="nonZero">
     <aapt:attr name="android:fillColor">
-      <gradient 
+      <gradient
           android:startX="125.76"
           android:startY="433.31"
           android:endX="398.57"

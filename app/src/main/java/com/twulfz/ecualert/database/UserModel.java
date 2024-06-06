@@ -1,6 +1,6 @@
 package com.twulfz.ecualert.database;
 
-public class UserModel {
+public class UserModel { // TODO: Remover la coleccion de usuarios (se remplazo la informacion por el FirebaseUser updateProfile)
     private String nombre;
     private String foto_url;
     private String correo;

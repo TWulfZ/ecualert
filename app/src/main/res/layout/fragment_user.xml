@@ -32,15 +32,17 @@
 
 
     <Button
-        android:id="@+id/btn_user"
+        android:id="@+id/btn_user_name"
+        style="@style/EditText"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:text="Nombre de ususario"
         android:background="@drawable/border_black"
-        android:textColor="@color/black"
-        style="@style/EditText"
         android:drawableLeft="@drawable/ic_edit"
+        android:paddingStart="14dp"
+        android:text="Nombre de ususario"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -53,7 +55,8 @@
         style="@style/EditText"
         android:background="@drawable/border_black"
         android:textColor="@color/black"
-        android:paddingStart="8dp"
+        android:textAlignment="textStart"
+        android:paddingStart="14dp"
         android:drawableLeft="@drawable/ic_edit"
         android:text="Cambiar contraseña"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/btn_logout"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
