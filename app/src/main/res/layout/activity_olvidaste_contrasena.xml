@@ -69,7 +69,7 @@
 
 
             <EditText
-                android:id="@+id/correo"
+                android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginTop="40dp"
@@ -83,7 +83,7 @@
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/btnRestablecer"
+                android:id="@+id/btnResetPassword"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="40dp"

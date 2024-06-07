@@ -16,6 +16,7 @@ public class Activity_inicio_sesion extends AppCompatActivity {
 
     Button btnLoggin;
     Button btnRegister;
+    Button btnRecover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,22 @@ public class Activity_inicio_sesion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(Activity_inicio_sesion.this, Form_Registro.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        Button btnRecover = findViewById(R.id.btnRecover);
+        btnRecover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // send to main activity
                 Intent intent = new Intent(Activity_inicio_sesion.this, Activity_olvidaste_contrasena.class);
                 startActivity(intent);
                 finish();
             }
         });
+
 
     }
 }
