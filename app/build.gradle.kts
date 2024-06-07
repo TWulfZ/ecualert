@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.googleGmsGoogleServices)
 }
 
 android {
     namespace = "com.twulfz.ecualert"
     compileSdk = 34
-
     defaultConfig {
 
         applicationId = "com.twulfz.ecualert"
@@ -49,10 +49,14 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0-alpha03")
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.0")
+    implementation("com.google.firebase:firebase-auth:21.1.0")
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
 }
+
