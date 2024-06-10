@@ -13,14 +13,24 @@
         android:theme="@style/Theme.Ecualert"
         tools:targetApi="31">
         <activity
-            android:name=".botton_nave_menu_admcuenta"
-            android:exported="false"
-            android:label="@string/title_activity_botton_nave_menu_admcuenta" />
+            android:name=".ActivityEditarContrasena"
+            android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Form_Registro"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_nueva_contransena"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_olvidaste_contrasena"
             android:exported="false" />
         <activity
             android:name=".Activity_inicio_sesion"
+            android:exported="false" />
+        <!-- TODO: Empezar desde MainActivity y Autenticar el usuario guardado en el dispositivo (SharedPreferences),
+            TODO: Si el usuario no existe, mostrar la pantalla de inicio de sesion -->
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

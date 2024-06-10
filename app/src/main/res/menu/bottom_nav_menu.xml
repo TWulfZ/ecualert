@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/mapBN"
+        android:title="@string/title_map"
+        android:icon="@drawable/ic_map"/>
+    <item
+        android:id="@+id/homeBN"
+        android:title="@string/title_home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/userBN"
+        android:title="@string/title_user"
+        android:icon="@drawable/ic_user"/>
 </menu>
