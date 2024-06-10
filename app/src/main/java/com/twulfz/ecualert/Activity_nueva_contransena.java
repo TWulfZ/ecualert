@@ -46,12 +46,12 @@ public class Activity_nueva_contransena extends AppCompatActivity {
                 String confirmarContrasena = confirmarContrasenaEditText.getText().toString();
 
                 if (nuevaContrasena.isEmpty() || confirmarContrasena.isEmpty()) {
-                    Toast.makeText(Activity_nueva_contransena.this, "Completa los campos we :v", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_nueva_contransena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!nuevaContrasena.equals(confirmarContrasena)) {
-                    Toast.makeText(Activity_nueva_contransena.this, "Las contraseñas tienen que coincidir we <:v", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_nueva_contransena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 FirebaseUser user = mAuth.getCurrentUser();
