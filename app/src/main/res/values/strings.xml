@@ -2,15 +2,13 @@
     <string name="app_name">Ecualert</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-<<<<<<< HEAD
     <string name="title_activity_botton_nave_menu_admcuenta">botton_nave_menu_admcuenta</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-=======
     <string name="title_map">Mapa</string>
-    <string name="title_home">Inicio</string>
     <string name="title_user">Usuario</string>
->>>>>>> 206f229cd50656590651d6353d08b342e6fd584f
 
+
+    <string name="title_activity_botton_nave_adcuenta">botton_nave_adcuenta</string>
 </resources>

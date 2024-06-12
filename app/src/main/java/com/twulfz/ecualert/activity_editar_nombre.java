@@ -1,4 +1,5 @@
 package com.twulfz.ecualert;
+import static android.graphics.Color.argb;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,20 +12,24 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ActivityEditarContrasena extends AppCompatActivity {
+public class activity_editar_nombre extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_editar_contrasena);
+        setContentView(R.layout.activity_editar_nombre);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Mostrar el AlertDialog cuando se crea la actividad
         mostrarAlertDialog();
     }
+
+
     private void mostrarAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("¿Estás seguro de continuar?")

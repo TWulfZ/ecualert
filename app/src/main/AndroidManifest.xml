@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecualert"
         tools:targetApi="31">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"/>
         <activity
             android:name=".ActivityEditarContrasena"
             android:exported="false" />
@@ -27,11 +31,14 @@
         <activity
             android:name=".Activity_inicio_sesion"
             android:exported="false" />
-        <!-- TODO: Empezar desde MainActivity y Autenticar el usuario guardado en el dispositivo (SharedPreferences),
-            TODO: Si el usuario no existe, mostrar la pantalla de inicio de sesion -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <!--
+ TODO: Empezar desde MainActivity y Autenticar el usuario guardado en el dispositivo (SharedPreferences),
+            TODO: Si el usuario no existe, mostrar la pantalla de inicio de sesion
+        -->
+
+            <activity
+                android:name=".activity_editar_nombre"
+                android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

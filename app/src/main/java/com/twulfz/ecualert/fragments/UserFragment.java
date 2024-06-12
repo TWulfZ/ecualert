@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.twulfz.ecualert.ActivityEditarContrasena;
 import com.twulfz.ecualert.Activity_inicio_sesion;
 import com.twulfz.ecualert.R;
+import com.twulfz.ecualert.activity_editar_nombre;
 import com.twulfz.ecualert.sesion.SesionManager;
 
 
@@ -52,6 +53,8 @@ public class UserFragment extends Fragment {
         // Set username
         if (user != null) {
             btnUsername.setText(user.getDisplayName());
+            Intent intent1 = new Intent(getContext(), activity_editar_nombre.class);
+            startActivity(intent1);
         }
 
         btnEditPass.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +63,7 @@ public class UserFragment extends Fragment {
 
                 Intent intent = new Intent(getContext(), ActivityEditarContrasena.class);
                 startActivity(intent);
+
             }
         });
 
