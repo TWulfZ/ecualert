@@ -2,6 +2,7 @@ package com.twulfz.ecualert;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Exception e) {
-                    Toast.makeText(MainActivity.this, "Por favor, inicia sesion. Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "La sesion ha expirado, inicia sesion. Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, Activity_inicio_sesion.class);
                     startActivity(intent);
                     finish();

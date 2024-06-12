@@ -33,7 +33,6 @@ public class AuthManager {
                 });
     }
 
-
     public void updateUserProfile(FirebaseUser user,String username, String urlPicture) {
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()

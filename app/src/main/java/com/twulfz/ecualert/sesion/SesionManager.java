@@ -25,6 +25,12 @@ public class SesionManager {
         editor.apply();
     }
 
+    public void editPassword(String password) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("password", password);
+        editor.apply();
+    }
+
     public String getEmail() {
         return sharedPreferences.getString(EMAIL, "");
     }
