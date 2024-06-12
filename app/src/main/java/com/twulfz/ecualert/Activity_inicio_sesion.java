@@ -76,6 +76,7 @@ public class Activity_inicio_sesion extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void LoginUser(String email, String password) {
