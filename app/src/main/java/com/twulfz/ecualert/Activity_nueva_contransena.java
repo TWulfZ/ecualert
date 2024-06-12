@@ -51,7 +51,7 @@ public class Activity_nueva_contransena extends AppCompatActivity {
                 }
 
                 if (!nuevaContrasena.equals(confirmarContrasena)) {
-                    Toast.makeText(Activity_nueva_contransena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_nueva_contransena.this, "Las contraseñas no coinciden...", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 FirebaseUser user = mAuth.getCurrentUser();
