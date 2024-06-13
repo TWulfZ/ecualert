@@ -6,6 +6,7 @@ plugins {
 android {
     namespace = "com.twulfz.ecualert"
     compileSdk = 34
+
     defaultConfig {
 
         applicationId = "com.twulfz.ecualert"
@@ -59,4 +60,3 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
 }
-
