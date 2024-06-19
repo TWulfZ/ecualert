@@ -1,16 +1,23 @@
 package com.twulfz.ecualert;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,14 +28,16 @@ import com.twulfz.ecualert.databinding.ActivityMainBinding;
 import com.twulfz.ecualert.fragments.HomeFragment;
 import com.twulfz.ecualert.fragments.MapFragment;
 import com.twulfz.ecualert.fragments.UserFragment;
-import com.twulfz.ecualert.sesion.SesionManager;
+import com.twulfz.ecualert.utils.LocationManager;
+import com.twulfz.ecualert.utils.SesionManager;
 
 public class MainActivity extends AppCompatActivity {
+
     private ActivityMainBinding binding;
     BottomNavigationView bottomNavigationView;
     SesionManager sesionManager;
     AuthManager authManager;
-
+    HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        homeFragment = new HomeFragment();
+
         // Fix height of bottomNavigation (needs: buildFeatures { viewBinding = true } in app/build.gradle)
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -52,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set home as default
         bottomNavigationView.setSelectedItemId(R.id.homeBN);
-        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, homeFragment).commit();
 
         // Set listener for bottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new MapFragment()).commit();
                     return true;
                 } else if (itemId == R.id.homeBN) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new HomeFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, homeFragment).commit();
                     return true;
                 } else if (itemId == R.id.userBN) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, new UserFragment()).commit();
@@ -104,6 +115,20 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, Activity_inicio_sesion.class);
             startActivity(intent);
             finish();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LocationManager.FINE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permiso concedido
+                homeFragment.requestLocation();
+            } else {
+                // Permiso denegado
+                Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.twulfz.ecualert;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +13,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.twulfz.ecualert.database.AuthManager;
 import com.twulfz.ecualert.database.FirestoreManager;
-import com.twulfz.ecualert.sesion.SesionManager;
+import com.twulfz.ecualert.utils.SesionManager;
 
 
 public class Activity_inicio_sesion extends AppCompatActivity {
@@ -71,9 +69,8 @@ public class Activity_inicio_sesion extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity_inicio_sesion.this, Form_Registro.class);
+                Intent intent = new Intent(Activity_inicio_sesion.this, Activity_registro.class);
                 startActivity(intent);
-                finish();
             }
         });
 

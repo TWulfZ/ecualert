@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.twulfz.ecualert.database.AuthManager;
-import com.twulfz.ecualert.sesion.SesionManager;
+import com.twulfz.ecualert.utils.SesionManager;
 
 public class ActivityEditarContrasena extends AppCompatActivity {
 
@@ -46,6 +46,13 @@ public class ActivityEditarContrasena extends AppCompatActivity {
                 String newPassword = txtNewPassword.getText().toString();
                 String confirmPassword = txtConfirmNewPassword.getText().toString();
                 editPassword(oldPassword, newPassword, confirmPassword);
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

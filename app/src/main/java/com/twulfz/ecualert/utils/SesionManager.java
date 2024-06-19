@@ -1,4 +1,4 @@
-package com.twulfz.ecualert.sesion;
+package com.twulfz.ecualert.utils;
 
 import android.content.SharedPreferences;
 

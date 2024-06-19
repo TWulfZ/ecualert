@@ -16,7 +16,7 @@
             android:name=".ActivityEditarContrasena"
             android:exported="false" />
         <activity
-            android:name=".Form_Registro"
+            android:name=".Activity_registro"
             android:exported="false" />
         <activity
             android:name=".Activity_nueva_contransena"
@@ -27,8 +27,6 @@
         <activity
             android:name=".Activity_inicio_sesion"
             android:exported="false" />
-        <!-- TODO: Empezar desde MainActivity y Autenticar el usuario guardado en el dispositivo (SharedPreferences),
-            TODO: Si el usuario no existe, mostrar la pantalla de inicio de sesion -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -42,6 +40,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
-    </application>
 
+    </application>
+    <!-- Persmisos para pedir ubicación -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>
