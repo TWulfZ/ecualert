@@ -1,15 +1,17 @@
 package com.twulfz.ecualert.database;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class AlertModel {
 
     private String fecha;
+    private GeoPoint ubicacion;
     private String uid_autor;
-    private String ubicacion;
 
-    public AlertModel(String fecha, String uid_autor, String ubicacion) {
+    public AlertModel(String fecha, GeoPoint ubicacion, String uid_autor) {
         this.fecha = fecha;
-        this.uid_autor = uid_autor;
         this.ubicacion = ubicacion;
+        this.uid_autor = uid_autor;
     }
 
     public String getFecha() {
@@ -20,7 +22,7 @@ public class AlertModel {
         return uid_autor;
     }
 
-    public String getUbicacion() {
+    public GeoPoint getUbicacion() {
         return ubicacion;
     }
 }

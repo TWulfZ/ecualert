@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.twulfz.ecualert.database.AuthManager;
 import com.twulfz.ecualert.database.FirestoreManager;
-import com.twulfz.ecualert.database.UserModel;
 
 public class Form_Registro extends AppCompatActivity {
 
