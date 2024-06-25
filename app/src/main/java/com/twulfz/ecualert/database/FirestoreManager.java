@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.twulfz.ecualert.database.models.AlertModel;
 import com.twulfz.ecualert.database.models.UserModel;
@@ -129,6 +130,7 @@ public class FirestoreManager {
 
     public void getAlerts(final AlertsCallback callback) {
         db.collection("alertas")
+                .orderBy("fecha", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

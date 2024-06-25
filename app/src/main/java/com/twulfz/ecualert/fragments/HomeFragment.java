@@ -17,13 +17,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
+import com.twulfz.ecualert.MainActivity;
 import com.twulfz.ecualert.R;
 import com.twulfz.ecualert.database.AuthManager;
 import com.twulfz.ecualert.database.FirestoreManager;
 import com.twulfz.ecualert.database.models.AlertModel;
 import com.twulfz.ecualert.utils.LocationManager;
 
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment implements MainActivity.LocationUpdateListener {
 
     ImageButton btnAlert, btnReports, btnMap;
     BottomNavigationView bottomNavigationView;
@@ -31,10 +32,7 @@ public class HomeFragment extends Fragment{
     AuthManager authManager;
 
     // Location
-    LocationManager locationManager;
-    FusedLocationProviderClient fusedLocationProviderClient;
-    Boolean locationPermissionGranted = false;
-    Double latitude, longitude;
+    private Location currentLocation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,34 +49,16 @@ public class HomeFragment extends Fragment{
         btnMap = view.findViewById(R.id.btn_map);
 
         // Location
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        locationManager = new LocationManager(fusedLocationProviderClient);
         firestoreManager = new FirestoreManager();
         authManager = new AuthManager();
-        requestLocation();
 
         btnAlert.setOnClickListener(new View.OnClickListener() {
-            // TODO: Send alert with the current location
             @Override
             public void onClick(View v) {
-                if (!locationPermissionGranted) {
-                    requestLocation();
+                if (currentLocation != null) {
+                    sendAlert();
                 } else {
-                    // Send alert to firestore
-                    GeoPoint geoPoint = new GeoPoint(latitude, longitude);
-                    AlertModel alert = new AlertModel(Timestamp.now(), geoPoint, authManager.getCurrentUser().getUid());
-                    firestoreManager.createAlertDocument(alert, new FirestoreManager.CreateDocumentCallback() {
-                        @Override
-                        public void onSuccess() {
-                            Toast.makeText(getContext(), "Alerta enviada", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(Exception e) {
-                            Toast.makeText(getContext(), "Error al enviar alerta", Toast.LENGTH_SHORT).show();
-                            Log.d("ERROR", e.getMessage());
-                        }
-                    });
+                    Toast.makeText(getContext(), "Ubicación no disponible", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -95,6 +75,7 @@ public class HomeFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 MapFragment mapFragment = new MapFragment();
+                //mapFragment.clearSelectedAlert();
                 getParentFragmentManager().beginTransaction().replace(R.id.flFragment, mapFragment).commit();
 
                 bottomNavigationView.setSelectedItemId(R.id.mapBN);
@@ -103,32 +84,37 @@ public class HomeFragment extends Fragment{
 
     }
 
-    public void requestLocation() {
-        locationManager.getLastLocation(getActivity(), new LocationManager.LocationCallback() {
+    private void sendAlert() {
+        GeoPoint geoPoint = new GeoPoint(currentLocation.getLatitude(), currentLocation.getLongitude());
+        AlertModel alert = new AlertModel(Timestamp.now(), geoPoint, authManager.getCurrentUser().getUid());
+        firestoreManager.createAlertDocument(alert, new FirestoreManager.CreateDocumentCallback() {
             @Override
-            public void onLocationReceived(Location location) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                btnAlert.setImageResource(R.drawable.logo_white);
-                btnAlert.setAlpha(1.0f);
-                locationPermissionGranted = true;
+            public void onSuccess() {
+                Toast.makeText(getContext(), "Alerta enviada", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onLocationNotAvailable() {
-                btnAlert.setImageResource(R.drawable.logo_white_blocked);
-                btnAlert.setAlpha(0.6f);
-                locationPermissionGranted = false;
-                Toast.makeText(getContext(), "Error al obtener ubicación", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLocationPermissionDenied() {
-                btnAlert.setAlpha(0.6f);
-                btnAlert.setImageResource(R.drawable.logo_white_blocked);
-                locationPermissionGranted = false;
-                Toast.makeText(getContext(), "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
+            public void onFailure(Exception e) {
+                Toast.makeText(getContext(), "Error al enviar alerta", Toast.LENGTH_SHORT).show();
+                Log.d("ERROR", e.getMessage());
             }
         });
     }
+
+    @Override
+    public void onLocationUpdated(Location location) {
+        currentLocation = location;
+        updateAlertButtonState();
+    }
+
+    private void updateAlertButtonState() {
+        if (currentLocation != null) {
+            btnAlert.setImageResource(R.drawable.logo_white);
+            btnAlert.setAlpha(1.0f);
+        } else {
+            btnAlert.setImageResource(R.drawable.logo_white_blocked);
+            btnAlert.setAlpha(0.6f);
+        }
+    }
+
 }

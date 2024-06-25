@@ -6,15 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.twulfz.ecualert.MainActivity;
 import com.twulfz.ecualert.R;
-import com.twulfz.ecualert.database.FirestoreManager;
 import com.twulfz.ecualert.database.ReportAdapter;
 import com.twulfz.ecualert.database.models.AlertModel;
 import com.twulfz.ecualert.database.models.UserModel;
@@ -23,9 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ReportFragment extends Fragment {
+public class ReportFragment extends Fragment implements MainActivity.DataUpdaterListener {
 
-    FirestoreManager firestoreManager;
     Spinner sp_order;
     RecyclerView recyclerView;
 
@@ -40,7 +38,6 @@ public class ReportFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        firestoreManager = new FirestoreManager();
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         sp_order = view.findViewById(R.id.sp_order);
@@ -51,31 +48,33 @@ public class ReportFragment extends Fragment {
         adapter.setDropDownViewResource(R.layout.order_selection);
         sp_order.setAdapter(adapter);
 
-
-        loadData(view);
+        // Cache
+        if (getActivity() instanceof MainActivity) {
+            ArrayList<AlertModel> cachedAlerts = ((MainActivity) getActivity()).getCachedAlerts();
+            ArrayList<UserModel> cachedUsers = ((MainActivity) getActivity()).getCachedUsers();
+            if(!cachedAlerts.isEmpty()) {
+                updateUI(cachedAlerts, cachedUsers);
+            }
+        }
 
     }
 
-    public void loadData(View view) {
-        firestoreManager.getAlerts(new FirestoreManager.AlertsCallback() {
-            @Override
-            public void onSuccess(ArrayList<AlertModel> alerts) {
-                ArrayList<AlertModel> alertsFiltered = new ArrayList<>();
-                // Filter empty reports
-                for (AlertModel alert : alerts) {
-                    if (alert.getFecha() != null && alert.getUbicacion() != null && alert.getUid_autor() != null) {
-                        alertsFiltered.add(alert);
-                    }
-                }
-                ReportAdapter adapter = new ReportAdapter(view.getContext(), alertsFiltered);
-                recyclerView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onFailure(Exception e) {
-                Log.d("Error", e.getMessage());
+    @Override
+    public void onDataUpdated(ArrayList<AlertModel> alerts, ArrayList<UserModel> users) {
+        updateUI(alerts, users);
+    }
+
+    private void updateUI(ArrayList<AlertModel> alerts, ArrayList<UserModel> users) {
+        ArrayList<AlertModel> alertsFiltered = new ArrayList<>();
+        for (AlertModel alert : alerts) {
+            if (alert.getFecha() != null && alert.getUbicacion() != null && alert.getUid_autor() != null) {
+                alertsFiltered.add(alert);
             }
-        });
+        }
+
+        ReportAdapter adapter = new ReportAdapter(getContext(), alertsFiltered, users);
+        recyclerView.setAdapter(adapter);
     }
 
 }
