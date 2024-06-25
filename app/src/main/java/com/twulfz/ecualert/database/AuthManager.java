@@ -10,9 +10,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.twulfz.ecualert.fragments.HomeFragment;
 
 public class AuthManager {
     private FirebaseAuth mAuth;
+
+    private FirebaseUser currentUser;
 
     public AuthManager() {
         mAuth = FirebaseAuth.getInstance();
@@ -55,6 +58,15 @@ public class AuthManager {
                         }
                     }
                 });
+    }
+
+    public FirebaseUser getCurrentUser() {
+        currentUser = mAuth.getCurrentUser();
+        return currentUser;
+    }
+
+    public void signOut() {
+        mAuth.signOut();
     }
 
     public interface AuthCallback {
