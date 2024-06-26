@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<AlertModel> cachedAlerts;
     private ArrayList<UserModel> cachedUsers;
     private CacheManager cacheManager;
+    private AlertModel selectedAlert;
 
 
     private ActivityMainBinding binding;
@@ -248,6 +249,11 @@ public class MainActivity extends AppCompatActivity {
         void onDataUpdated(ArrayList<AlertModel> alerts, ArrayList<UserModel> users);
     }
 
+    // Seters
+    public void setSelectedALert(AlertModel alert) {
+        selectedAlert = alert;
+    }
+
     // Geters
     public ArrayList<AlertModel> getCachedAlerts() {
         return new ArrayList<>(cachedAlerts);
@@ -258,4 +264,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Location getCurrentLocation() { return currentLocation; }
+
+    public AlertModel getSelectedAlert() { return selectedAlert; }
 }
