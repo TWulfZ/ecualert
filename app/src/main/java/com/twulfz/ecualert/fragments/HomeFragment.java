@@ -24,6 +24,8 @@ import com.twulfz.ecualert.database.FirestoreManager;
 import com.twulfz.ecualert.database.models.AlertModel;
 import com.twulfz.ecualert.utils.LocationManager;
 
+import es.dmoral.toasty.Toasty;
+
 public class HomeFragment extends Fragment implements MainActivity.LocationUpdateListener {
 
     ImageButton btnAlert, btnReports, btnMap;
@@ -58,7 +60,8 @@ public class HomeFragment extends Fragment implements MainActivity.LocationUpdat
                 if (currentLocation != null) {
                     sendAlert();
                 } else {
-                    Toast.makeText(getContext(), "Ubicación no disponible", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Ubicación no disponible", Toast.LENGTH_SHORT).show();
+                    Toasty.error(getContext(), "Ubicación no disponible", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -90,12 +93,14 @@ public class HomeFragment extends Fragment implements MainActivity.LocationUpdat
         firestoreManager.createAlertDocument(alert, new FirestoreManager.CreateDocumentCallback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(getContext(), "Alerta enviada", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Alerta enviada", Toast.LENGTH_SHORT).show();
+                Toasty.success(getContext(), "Alerta enviada", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(getContext(), "Error al enviar alerta", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error al enviar alerta", Toast.LENGTH_SHORT).show();
+                Toasty.error(getContext(), "Error al enviar alerta", Toast.LENGTH_SHORT).show();
                 Log.d("ERROR", e.getMessage());
             }
         });
@@ -108,12 +113,14 @@ public class HomeFragment extends Fragment implements MainActivity.LocationUpdat
     }
 
     private void updateAlertButtonState() {
-        if (currentLocation != null) {
-            btnAlert.setImageResource(R.drawable.logo_white);
-            btnAlert.setAlpha(1.0f);
-        } else {
-            btnAlert.setImageResource(R.drawable.logo_white_blocked);
-            btnAlert.setAlpha(0.6f);
+        if(btnAlert != null) {
+            if (currentLocation != null) {
+                btnAlert.setImageResource(R.drawable.logo_white);
+                btnAlert.setAlpha(1.0f);
+            } else {
+                btnAlert.setImageResource(R.drawable.logo_white_blocked);
+                btnAlert.setAlpha(0.6f);
+            }
         }
     }
 
