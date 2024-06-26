@@ -1,5 +1,6 @@
 package com.twulfz.ecualert.fragments;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,6 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.view.LayoutInflater;
@@ -45,7 +50,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, MainAct
 
     GoogleMap mMap;
     Location currentLocation;
-    private Location selectedLocation;
+    private AlertModel selectedAlert;
     private ArrayList<AlertModel> cachedAlerts;
     private ArrayList<UserModel> cachedUsers;
 
@@ -66,6 +71,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, MainAct
             currentLocation = mainActivity.getCurrentLocation();
             cachedAlerts = mainActivity.getCachedAlerts();
             cachedUsers = mainActivity.getCachedUsers();
+            selectedAlert = mainActivity.getSelectedAlert();
             updateMap(mainActivity.getCachedAlerts(), mainActivity.getCachedUsers(), currentLocation);
         }
     }
@@ -73,7 +79,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, MainAct
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-
         updateMap(cachedAlerts, cachedUsers, currentLocation);
     }
 
@@ -109,10 +114,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, MainAct
                 .title("Mi ubicación")
                 .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_person_location)));
 
-        if (selectedLocation != null) {
-            LatLng selectedLatLng = new LatLng(selectedLocation.getLatitude(), selectedLocation.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLatLng, 16.5f));
+        if (selectedAlert != null) {
+            Log.d("MapFragment", "Selected alert: " + selectedAlert.toString());
+            LatLng selectedLocation = new LatLng(selectedAlert.getUbicacion().getLatitude(), selectedAlert.getUbicacion().getLongitude());
+            Marker alertMarker = mMap.addMarker(new MarkerOptions()
+                    .position(selectedLocation)
+                    .title(labelAlert(selectedAlert))
+                    .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_alert_location)));
+            alertMarker.showInfoWindow();
+
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17f));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 16.5f));
+            animateMapViewCenterToCoordinates(selectedLocation, 18f, 1200);
+            // Reset selected alert in MainActivity
+            ((MainActivity) getActivity()).setSelectedALert(null);
+
         } else {
+            Log.d("MapFragment", "Selected alert: null");
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 16.5f));
         }
     }
@@ -134,6 +158,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, MainAct
         return username + " a las " + date;
     }
 
+
+
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
         vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
@@ -141,5 +167,34 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, MainAct
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    public void animateMapViewCenterToCoordinates(final LatLng coordinates, float zoom, int duration) {
+        LatLng mapViewCenter = mMap.getCameraPosition().target;
+
+        ValueAnimator latAnimator = ValueAnimator.ofFloat((float) mapViewCenter.latitude, (float) coordinates.latitude);
+        ValueAnimator lngAnimator = ValueAnimator.ofFloat((float) mapViewCenter.longitude, (float) coordinates.longitude);
+
+        latAnimator.setDuration(duration);
+        lngAnimator.setDuration(duration);
+
+        latAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        lngAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        latAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float lat = (float) animation.getAnimatedValue();
+                float lng = (float) lngAnimator.getAnimatedValue();
+                moveMapViewCenterToCoordinates(new LatLng(lat, lng), zoom);
+            }
+        });
+
+        latAnimator.start();
+        lngAnimator.start();
+    }
+
+    private void moveMapViewCenterToCoordinates(LatLng coordinates, float zoom) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, zoom));
     }
 }

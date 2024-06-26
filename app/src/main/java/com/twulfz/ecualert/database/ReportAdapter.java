@@ -88,11 +88,12 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ViewHolder
                 // send Location to maps
                 // TODO: Show location on map
                 MapFragment mapFragment = new MapFragment();
-                ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, mapFragment).commit();
+                MainActivity activity = (MainActivity) context;
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, mapFragment).commit();
                 Location location = new Location("Selected Location");
                 location.setLatitude(alert.getUbicacion().getLatitude());
                 location.setLongitude(alert.getUbicacion().getLongitude());
-                //mapFragment.setSelectedLocation(location);
+                activity.setSelectedALert(alert);
 
                 BottomNavigationView bottomNavigationView = ((MainActivity) context).findViewById(R.id.bottomNavigationView);
                 bottomNavigationView.setSelectedItemId(R.id.mapBN);
