@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityEditarContrasena"
-    android:background="@color/white">
+    android:background="@color/primary_color">
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:background="@drawable/circle_white_border"
+        android:background="@drawable/circle_white"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="-50dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
@@ -37,67 +37,59 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
-            android:background="@drawable/border_black"
-            android:paddingTop="32dp"
+            android:paddingTop="50dp"
             android:paddingHorizontal="24dp">
 
 
             <TextView
                 android:id="@+id/textView"
+                style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingrese la nueva contraseña"
                 android:textAlignment="center"
-                android:textColor="@color/black"
-                style="@style/EditText"
-
+                android:textColor="@color/font_color"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/Edit_contra_Actual"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                style="@style/EditText"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/border_black"
-                android:drawablePadding="8dp"
-                android:inputType="textPassword"
-                android:textColorHint="@color/black"
-                android:hint="Contraseña actual"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                />
+            android:id="@+id/txt_password"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/custom_edittext"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="8dp"
+            android:hint="Contraseña actual"
+            android:inputType="textPassword"
+            android:padding="20dp"
+            android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/Edit_nue_Contra"
+                android:id="@+id/txt_new_password"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/border_black"
+                android:layout_height="65dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/outline_edit_24"
                 android:drawablePadding="8dp"
-                style="@style/EditText"
-                android:inputType="textPassword"
-                android:textColorHint="@color/black"
                 android:hint="Nueva contraseña"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                android:inputType="textPassword"
+                android:padding="20dp"
+                android:textColor="@color/black" />
+
             <EditText
-                android:id="@+id/Edit_conf_Contra"
+                android:id="@+id/txt_new_password_confirm"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/border_black"
+                android:layout_height="65dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/outline_edit_24"
                 android:drawablePadding="8dp"
                 android:hint="Confirmar contraseña"
                 android:inputType="textPassword"
-                android:textColorHint="@color/black"
-                android:padding="8dp"
-                style="@style/EditText"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                android:padding="20dp"
+                android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,15 +115,32 @@
                     android:textColor="@color/font_color"
                     android:textSize="18sp"
                     app:cornerRadius="20dp"
-
                     />
-
-
             </LinearLayout>
-
-
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_cancel"
+        style="@style/EditText"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/warning_color"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Cancelar"
+        android:textColor="@color/fontAlt_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

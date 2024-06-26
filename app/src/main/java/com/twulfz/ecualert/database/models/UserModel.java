@@ -1,10 +1,14 @@
-package com.twulfz.ecualert.database;
+package com.twulfz.ecualert.database.models;
 
 public class UserModel {
     private String nombre;
     private String foto_url;
     private String correo;
     private String uid;
+
+
+    public UserModel() {
+    }
 
     public UserModel(String nombre,  String foto_url,  String correo, String uid) {
         this.nombre = nombre;

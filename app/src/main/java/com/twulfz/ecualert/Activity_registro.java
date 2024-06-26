@@ -18,9 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.twulfz.ecualert.database.AuthManager;
 import com.twulfz.ecualert.database.FirestoreManager;
-import com.twulfz.ecualert.database.UserModel;
+import com.twulfz.ecualert.database.models.UserModel;
 
-public class Form_Registro extends AppCompatActivity {
+public class Activity_registro extends AppCompatActivity {
 
     Button btnLoggin;
     EditText txtUsername, txtEmail, txtPassword;
@@ -66,29 +66,35 @@ public class Form_Registro extends AppCompatActivity {
 
     // Implements image uploading
     private void RegisterUser(String username, String correo, String password, String urlPicture) {
-        authManager.registerUser(correo, password, new AuthManager.RegisterCallback() {
+        authManager.registerUser(correo, password, new AuthManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
-                UserModel userModel = new UserModel(username, "", correo, user.getUid());
-                firestoreManager.createUserDocument(userModel, new FirestoreManager.CreateUserCallback() {
+                authManager.updateUserProfile(user, username, urlPicture);
+
+                // Create user model
+                UserModel userDoc = new UserModel(username, urlPicture, correo, user.getUid());
+                firestoreManager.createUserDocument(userDoc, new FirestoreManager.CreateDocumentCallback() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(Form_Registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
                         // Enviar a la pantalla de inicio
-                        Intent intent = new Intent(Form_Registro.this, Activity_inicio_sesion.class);
+                        Intent intent = new Intent(Activity_registro.this, Activity_inicio_sesion.class);
                         startActivity(intent);
                         finish();
                     }
 
                     @Override
                     public void onFailure(Exception e) {
+                        Toast.makeText(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
                         Log.d("Error", e.getMessage());
                     }
                 });
+
             }
 
             @Override
             public void onFailure(Exception e) {
+                Toast.makeText(Activity_registro.this, "El correo ya se encuentra registrado o problema con la autenticación", Toast.LENGTH_SHORT).show();
                 Log.d("Error", e.getMessage());
             }
         });
