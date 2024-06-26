@@ -18,6 +18,8 @@ import com.twulfz.ecualert.database.AuthManager;
 import com.twulfz.ecualert.database.FirestoreManager;
 import com.twulfz.ecualert.utils.SesionManager;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class Activity_inicio_sesion extends AppCompatActivity {
 
@@ -59,7 +61,8 @@ public class Activity_inicio_sesion extends AppCompatActivity {
                 String password = txtPassword.getText().toString();
 
                 if(email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(Activity_inicio_sesion.this, "Debes rellenar todos los campos", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Activity_inicio_sesion.this, "Debes rellenar todos los campos", Toast.LENGTH_SHORT).show();
+                    Toasty.info(Activity_inicio_sesion.this, "Debes rellenar todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
                     LoginUser(email, password);
                 }
@@ -86,7 +89,8 @@ public class Activity_inicio_sesion extends AppCompatActivity {
 
                 // Toast: Bienvenido <username>
                 String username = authUser.getDisplayName();
-                Toast.makeText(Activity_inicio_sesion.this, "Bienvenido " + username, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Activity_inicio_sesion.this, "Bienvenido " + username, Toast.LENGTH_SHORT).show();
+                Toasty.success(Activity_inicio_sesion.this, "Inicio de sesión exitoso " + username, Toast.LENGTH_SHORT).show();
 
                 // Enviar a la MainActivity
                 Intent intent = new Intent(Activity_inicio_sesion.this, MainActivity.class);
@@ -96,7 +100,8 @@ public class Activity_inicio_sesion extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(Activity_inicio_sesion.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Activity_inicio_sesion.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toasty.error(Activity_inicio_sesion.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });;
     }

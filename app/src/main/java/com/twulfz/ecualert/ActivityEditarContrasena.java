@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.twulfz.ecualert.database.AuthManager;
 import com.twulfz.ecualert.utils.SesionManager;
 
+import es.dmoral.toasty.Toasty;
+
 public class ActivityEditarContrasena extends AppCompatActivity {
 
     Button btnEdit, btnCancel;
@@ -60,12 +62,14 @@ public class ActivityEditarContrasena extends AppCompatActivity {
 
     private void editPassword(String oldPassword, String newPassword, String confirmPassword) {
         if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(ActivityEditarContrasena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ActivityEditarContrasena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+            Toasty.info(ActivityEditarContrasena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!newPassword.equals(confirmPassword)) {
-            Toast.makeText(ActivityEditarContrasena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ActivityEditarContrasena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            Toasty.error(ActivityEditarContrasena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -79,13 +83,15 @@ public class ActivityEditarContrasena extends AppCompatActivity {
                 authUser.updatePassword(newPassword)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(ActivityEditarContrasena.this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(ActivityEditarContrasena.this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                Toasty.success(ActivityEditarContrasena.this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show();
                                 sesionManager.editPassword(newPassword);
                                 Intent intent = new Intent(ActivityEditarContrasena.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
-                                Toast.makeText(ActivityEditarContrasena.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(ActivityEditarContrasena.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                                Toasty.error(ActivityEditarContrasena.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -93,7 +99,8 @@ public class ActivityEditarContrasena extends AppCompatActivity {
             @Override
             public void onFailure(Exception e) {
                 // TODO: Quitar mensaje de error concatenado en Despliegue
-                Toast.makeText(ActivityEditarContrasena.this, "La contraseña actual no coincide " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ActivityEditarContrasena.this, "La contraseña actual no coincide " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toasty.error(ActivityEditarContrasena.this, "La contraseña actual no coincide " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

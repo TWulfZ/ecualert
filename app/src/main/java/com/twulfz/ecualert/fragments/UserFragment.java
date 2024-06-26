@@ -19,6 +19,8 @@ import com.twulfz.ecualert.Activity_inicio_sesion;
 import com.twulfz.ecualert.R;
 import com.twulfz.ecualert.utils.SesionManager;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class UserFragment extends Fragment {
 
@@ -51,7 +53,8 @@ public class UserFragment extends Fragment {
         if (user != null) {
             btnUsername.setText(user.getDisplayName());
         } else {
-            Toast.makeText(context, "Error al obtener el nombre de usuario, asegúrese de estar conectado a internet", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Error al obtener el nombre de usuario, asegúrese de estar conectado a internet", Toast.LENGTH_LONG).show();
+            Toasty.error(context, "Error al obtener el nombre de usuario, asegúrese de estar conectado a internet", Toast.LENGTH_LONG).show();
         }
 
         btnEditPass.setOnClickListener(new View.OnClickListener() {
