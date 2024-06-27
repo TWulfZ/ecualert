@@ -20,20 +20,16 @@ import com.twulfz.ecualert.utils.SesionManager;
 
 import es.dmoral.toasty.Toasty;
 
-
 public class Activity_inicio_sesion extends AppCompatActivity {
 
-    Button btnLoggin, btnRegister;
-
+    Button btnLoggin, btnRegister, btnRecover;
     EditText txtEmail, txtPassword;
-
 
     private AuthManager authManager;
     private FirestoreManager firestoreManager;
 
     // User sesion
     SesionManager sesionManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +43,8 @@ public class Activity_inicio_sesion extends AppCompatActivity {
         });
 
         btnLoggin = findViewById(R.id.btnLoggin);
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRecover = findViewById(R.id.btnRecover);
 
         txtEmail = findViewById(R.id.txt_email);
         txtPassword = findViewById(R.id.txt_password);
@@ -68,7 +66,7 @@ public class Activity_inicio_sesion extends AppCompatActivity {
                 }
             }
         });
-        btnRegister = findViewById(R.id.btnRegister);  // Usar btnRegister, no btnrRgister
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +75,13 @@ public class Activity_inicio_sesion extends AppCompatActivity {
             }
         });
 
+        btnRecover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_inicio_sesion.this, Activity_olvidaste_contrasena.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void LoginUser(String email, String password) {
@@ -103,6 +108,6 @@ public class Activity_inicio_sesion extends AppCompatActivity {
                 //Toast.makeText(Activity_inicio_sesion.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 Toasty.error(Activity_inicio_sesion.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });;
+        });
     }
 }
