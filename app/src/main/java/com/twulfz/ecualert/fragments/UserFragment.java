@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.twulfz.ecualert.ActivityEditarContrasena;
+import com.twulfz.ecualert.ActivityEditarNombre;
 import com.twulfz.ecualert.Activity_inicio_sesion;
 import com.twulfz.ecualert.R;
 import com.twulfz.ecualert.utils.SesionManager;
@@ -57,10 +58,17 @@ public class UserFragment extends Fragment {
             Toasty.error(context, "Error al obtener el nombre de usuario, asegúrese de estar conectado a internet", Toast.LENGTH_LONG).show();
         }
 
+        btnUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ActivityEditarNombre.class);
+                startActivity(intent);
+            }
+        });
+
         btnEditPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getContext(), ActivityEditarContrasena.class);
                 startActivity(intent);
             }

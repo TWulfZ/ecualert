@@ -76,29 +76,38 @@ public class Activity_registro extends AppCompatActivity {
         authManager.registerUser(correo, password, new AuthManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
-                authManager.updateUserProfile(user, username, urlPicture);
-
-                // Create user model
-                UserModel userDoc = new UserModel(username, urlPicture, correo, user.getUid());
-                firestoreManager.createUserDocument(userDoc, new FirestoreManager.CreateDocumentCallback() {
+                authManager.updateUserProfile(user, username, urlPicture, new AuthManager.AuthVoidCallback() {
                     @Override
                     public void onSuccess() {
-                        //Toast.makeText(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
-                        Toasty.success(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
-                        // Enviar a la pantalla de inicio
-                        Intent intent = new Intent(Activity_registro.this, Activity_inicio_sesion.class);
-                        startActivity(intent);
-                        finish();
+                        // Create user model
+                        UserModel userDoc = new UserModel(username, urlPicture, correo, user.getUid());
+                        firestoreManager.createUserDocument(userDoc, new FirestoreManager.CreateDocumentCallback() {
+                            @Override
+                            public void onSuccess() {
+                                //Toast.makeText(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                                Toasty.success(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                                // Enviar a la pantalla de inicio
+                                Intent intent = new Intent(Activity_registro.this, Activity_inicio_sesion.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                //Toast.makeText(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
+                                Toasty.error(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
+                                Log.d("Error", e.getMessage());
+                            }
+                        });
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-                        //Toast.makeText(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
-                        Toasty.error(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Activity_registro.this, "Error con la autenticación", Toast.LENGTH_SHORT).show();
+                        Toasty.error(Activity_registro.this, "Error con la autenticación", Toast.LENGTH_SHORT).show();
                         Log.d("Error", e.getMessage());
                     }
                 });
-
             }
 
             @Override
