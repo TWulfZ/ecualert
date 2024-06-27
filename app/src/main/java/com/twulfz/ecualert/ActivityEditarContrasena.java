@@ -1,13 +1,16 @@
 package com.twulfz.ecualert;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -47,7 +50,20 @@ public class ActivityEditarContrasena extends AppCompatActivity {
                 String oldPassword = txtPassword.getText().toString();
                 String newPassword = txtNewPassword.getText().toString();
                 String confirmPassword = txtConfirmNewPassword.getText().toString();
-                editPassword(oldPassword, newPassword, confirmPassword);
+
+                if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                    //Toast.makeText(ActivityEditarContrasena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                    Toasty.info(ActivityEditarContrasena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!newPassword.equals(confirmPassword)) {
+                    //Toast.makeText(ActivityEditarContrasena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    Toasty.error(ActivityEditarContrasena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                showAlertDialog(oldPassword, newPassword, confirmPassword);
             }
         });
 
@@ -60,19 +76,37 @@ public class ActivityEditarContrasena extends AppCompatActivity {
 
     }
 
+    private void showAlertDialog(String oldPassword, String newPassword, String confirmPassword) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("¿Estás seguro de cambiar tu contraseña?")
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        editPassword(oldPassword, newPassword, confirmPassword);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        // Para que el diálogo no sea cancelable
+        builder.setCancelable(false);
+
+        // mostrar el alerta
+        AlertDialog dialog = builder.create();
+
+        dialog.getWindow().setBackgroundDrawableResource(R.color.fontAlt_color);
+
+        dialog.show();
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(layoutParams);
+    }
+
     private void editPassword(String oldPassword, String newPassword, String confirmPassword) {
-        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            //Toast.makeText(ActivityEditarContrasena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
-            Toasty.info(ActivityEditarContrasena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!newPassword.equals(confirmPassword)) {
-            //Toast.makeText(ActivityEditarContrasena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-            Toasty.error(ActivityEditarContrasena.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         AuthManager authManager = new AuthManager();
         SesionManager sesionManager = new SesionManager(getSharedPreferences(SesionManager.SESSION, MODE_PRIVATE));
         String email = sesionManager.getEmail();

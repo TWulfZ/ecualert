@@ -28,6 +28,9 @@
             android:name=".Activity_inicio_sesion"
             android:exported="false" />
         <activity
+            android:name=".ActivityEditarNombre"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

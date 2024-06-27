@@ -36,13 +36,23 @@ public class AuthManager {
                 });
     }
 
-    public void updateUserProfile(FirebaseUser user,String username, String urlPicture) {
+    public void updateUserProfile(FirebaseUser user,String username, String urlPicture, final AuthVoidCallback callback) {
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(username)
                     .setPhotoUri(Uri.parse(urlPicture))
                     .build();
-            user.updateProfile(profileUpdates);
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                callback.onSuccess();
+                            } else {
+                                callback.onFailure(task.getException());
+                            }
+                        }
+                    });
         }
     }
 
@@ -74,4 +84,8 @@ public class AuthManager {
         void onFailure(Exception e);
     }
 
+    public interface AuthVoidCallback {
+        void onSuccess();
+        void onFailure(Exception e);
+    }
 }
