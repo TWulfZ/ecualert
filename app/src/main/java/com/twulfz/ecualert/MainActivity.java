@@ -19,6 +19,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -39,6 +40,8 @@ import com.twulfz.ecualert.utils.SesionManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -132,12 +135,14 @@ public class MainActivity extends AppCompatActivity {
             authManager.loginUser(email, password, new AuthManager.AuthCallback() {
                 @Override
                 public void onSuccess(FirebaseUser authUser) {
-                    Toast.makeText(MainActivity.this, "Bienvenido " + authUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Bienvenido " + authUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    Toasty.normal(MainActivity.this, "Bienvenido " + authUser.getDisplayName(), Toast.LENGTH_SHORT, ContextCompat.getDrawable(MainActivity.this, R.drawable.logo_white)).show();
                 }
 
                 @Override
                 public void onFailure(Exception e) {
-                    Toast.makeText(MainActivity.this, "La sesion ha expirado, inicia sesion. Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "La sesion ha expirado, inicia sesion. Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toasty.info(MainActivity.this, "La sesion ha expirado, inicia sesion. Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, Activity_inicio_sesion.class);
                     startActivity(intent);
                     finish();
@@ -145,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
             });
         } else {
             // No hay sesion en SharedPreferences
-            Toast.makeText(MainActivity.this, "Por favor, inicia sesion.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.this, "Por favor, inicia sesion.", Toast.LENGTH_LONG).show();
+            Toasty.info(MainActivity.this, "Por favor, inicia sesion.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this, Activity_inicio_sesion.class);
             startActivity(intent);
             finish();
@@ -163,12 +169,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLocationNotAvailable() {
-                Toast.makeText(MainActivity.this, "Error al obtener ubicación", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Error al obtener ubicación", Toast.LENGTH_SHORT).show();
+                //Toasty.warning(MainActivity.this, "Error al obtener ubicación", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onLocationPermissionDenied() {
-                Toast.makeText(MainActivity.this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
+                Toasty.error(MainActivity.this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -188,7 +197,9 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 requestLocation();
             } else {
-                Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
+                Toasty.error(this,"Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
+
             }
         }
     }

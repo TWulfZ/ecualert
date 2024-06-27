@@ -16,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import es.dmoral.toasty.Toasty;
+
 public class Activity_nueva_contransena extends AppCompatActivity {
 
     private EditText nuevaContrasenaEditText;
@@ -46,12 +48,14 @@ public class Activity_nueva_contransena extends AppCompatActivity {
                 String confirmarContrasena = confirmarContrasenaEditText.getText().toString();
 
                 if (nuevaContrasena.isEmpty() || confirmarContrasena.isEmpty()) {
-                    Toast.makeText(Activity_nueva_contransena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Activity_nueva_contransena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(Activity_nueva_contransena.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!nuevaContrasena.equals(confirmarContrasena)) {
-                    Toast.makeText(Activity_nueva_contransena.this, "Las contraseñas no coinciden...", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Activity_nueva_contransena.this, "Las contraseñas no coinciden...", Toast.LENGTH_SHORT).show();
+                    Toasty.error(Activity_nueva_contransena.this, "Las contraseñas no coinciden...", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 FirebaseUser user = mAuth.getCurrentUser();
@@ -59,16 +63,19 @@ public class Activity_nueva_contransena extends AppCompatActivity {
                     user.updatePassword(nuevaContrasena)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Activity_nueva_contransena.this, "Contraseña actualizada", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(Activity_nueva_contransena.this, "Contraseña actualizada", Toast.LENGTH_SHORT).show();
+                                    Toasty.success(Activity_nueva_contransena.this, "Contraseña actualizada", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Activity_nueva_contransena.this, Activity_inicio_sesion.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(Activity_nueva_contransena.this, "Error, no se actualizó la contraseña" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(Activity_nueva_contransena.this, "Error, no se actualizó la contraseña" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toasty.error(Activity_nueva_contransena.this, "Error, no se actualizó la contraseña" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                 } else {
-                    Toast.makeText(Activity_nueva_contransena.this, "El usuario no existe, por favor cree una cuenta en el apartado de registro", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Activity_nueva_contransena.this, "El usuario no existe, por favor cree una cuenta en el apartado de registro", Toast.LENGTH_SHORT).show();
+                    Toasty.error(Activity_nueva_contransena.this, "El usuario no existe, por favor cree una cuenta en el apartado de registro", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Activity_nueva_contransena.this, Activity_inicio_sesion.class);
                     startActivity(intent);
                     finish();

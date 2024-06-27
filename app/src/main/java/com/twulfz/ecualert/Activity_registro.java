@@ -20,6 +20,8 @@ import com.twulfz.ecualert.database.AuthManager;
 import com.twulfz.ecualert.database.FirestoreManager;
 import com.twulfz.ecualert.database.models.UserModel;
 
+import es.dmoral.toasty.Toasty;
+
 public class Activity_registro extends AppCompatActivity {
 
     Button btnLoggin;
@@ -58,7 +60,12 @@ public class Activity_registro extends AppCompatActivity {
                 password = txtPassword.getText().toString();
 
                 // Auth register
-                RegisterUser(username, correo, password, "");
+                if (username.isEmpty() || correo.isEmpty() || password.isEmpty()) {
+                    //Toast.makeText(Activity_registro.this, "Debes rellenar todos los campos", Toast.LENGTH_SHORT).show();
+                    Toasty.info(Activity_registro.this, "Debes rellenar todos los campos", Toast.LENGTH_SHORT).show();
+                } else {
+                    RegisterUser(username, correo, password, "");
+                }
             }
         });
     }
@@ -76,7 +83,8 @@ public class Activity_registro extends AppCompatActivity {
                 firestoreManager.createUserDocument(userDoc, new FirestoreManager.CreateDocumentCallback() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                        Toasty.success(Activity_registro.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
                         // Enviar a la pantalla de inicio
                         Intent intent = new Intent(Activity_registro.this, Activity_inicio_sesion.class);
                         startActivity(intent);
@@ -85,7 +93,8 @@ public class Activity_registro extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Exception e) {
-                        Toast.makeText(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
+                        Toasty.error(Activity_registro.this, "Error con la base de datos", Toast.LENGTH_SHORT).show();
                         Log.d("Error", e.getMessage());
                     }
                 });
@@ -94,7 +103,8 @@ public class Activity_registro extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(Activity_registro.this, "El correo ya se encuentra registrado o problema con la autenticación", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Activity_registro.this, "El correo ya se encuentra registrado o problema con la autenticación", Toast.LENGTH_SHORT).show();
+                Toasty.error(Activity_registro.this, "El correo ya se encuentra registrado o problema con la autenticación", Toast.LENGTH_SHORT).show();
                 Log.d("Error", e.getMessage());
             }
         });
