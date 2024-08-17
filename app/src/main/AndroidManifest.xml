@@ -16,7 +16,7 @@
             android:name=".ActivityEditarContrasena"
             android:exported="false" />
         <activity
-            android:name=".Form_Registro"
+            android:name=".Activity_registro"
             android:exported="false" />
         <activity
             android:name=".Activity_nueva_contransena"
@@ -25,10 +25,13 @@
             android:name=".Activity_olvidaste_contrasena"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity_inicio_sesion"
             android:exported="false" />
         <activity
-            android:name=".Activity_inicio_sesion"
+            android:name=".ActivityEditarNombre"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +43,21 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
-    </application>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification_logo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/primary_color" />
 
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+    <!-- Persmisos para pedir ubicación -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

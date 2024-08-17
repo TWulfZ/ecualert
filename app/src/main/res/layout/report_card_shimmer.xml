@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/primary_color"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <!--Contenedor horizontal-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_user"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:background="@android:color/darker_gray" />
+
+        <!--Contenedor Vertical-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:paddingStart="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_time"
+                android:layout_width="200dp"
+                android:layout_height="32dp"
+                android:background="@android:color/darker_gray"
+                android:textAlignment="center"
+                android:textColor="@color/fontAlt_color"
+                android:textSize="32dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="18dp"/>
+
+            <TextView
+                android:id="@+id/txt_username"
+                android:layout_width="200dp"
+                android:layout_height="32dp"
+                android:background="@android:color/darker_gray"
+                android:textAlignment="center"
+                android:textColor="@color/fontAlt_color"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_location"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@color/primary_color" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
